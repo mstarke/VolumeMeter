@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'VolumeMeter' target in the 'VolumeMeter' project
+//
+
+#ifdef __OBJC__
+  #import <Cocoa/Cocoa.h>
+#endif

@@ -1,0 +1,305 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4C089861168E217D00CE6AAC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C089860168E217D00CE6AAC /* Cocoa.framework */; };
+		4C08986B168E217D00CE6AAC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C089869168E217D00CE6AAC /* InfoPlist.strings */; };
+		4C08986D168E217D00CE6AAC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C08986C168E217D00CE6AAC /* main.m */; };
+		4C089871168E217D00CE6AAC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4C08986F168E217D00CE6AAC /* Credits.rtf */; };
+		4C089874168E217D00CE6AAC /* VMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C089873168E217D00CE6AAC /* VMAppDelegate.m */; };
+		4C089877168E217E00CE6AAC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C089875168E217E00CE6AAC /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4C08985C168E217D00CE6AAC /* VolumeMeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VolumeMeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C089860168E217D00CE6AAC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		4C089863168E217D00CE6AAC /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		4C089864168E217D00CE6AAC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		4C089865168E217D00CE6AAC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4C089868168E217D00CE6AAC /* VolumeMeter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VolumeMeter-Info.plist"; sourceTree = "<group>"; };
+		4C08986A168E217D00CE6AAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4C08986C168E217D00CE6AAC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4C08986E168E217D00CE6AAC /* VolumeMeter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VolumeMeter-Prefix.pch"; sourceTree = "<group>"; };
+		4C089870168E217D00CE6AAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		4C089872168E217D00CE6AAC /* VMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VMAppDelegate.h; sourceTree = "<group>"; };
+		4C089873168E217D00CE6AAC /* VMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMAppDelegate.m; sourceTree = "<group>"; };
+		4C089876168E217E00CE6AAC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4C089859168E217D00CE6AAC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C089861168E217D00CE6AAC /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4C089851168E217D00CE6AAC = {
+			isa = PBXGroup;
+			children = (
+				4C089866168E217D00CE6AAC /* VolumeMeter */,
+				4C08985F168E217D00CE6AAC /* Frameworks */,
+				4C08985D168E217D00CE6AAC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4C08985D168E217D00CE6AAC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4C08985C168E217D00CE6AAC /* VolumeMeter.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4C08985F168E217D00CE6AAC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C089860168E217D00CE6AAC /* Cocoa.framework */,
+				4C089862168E217D00CE6AAC /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4C089862168E217D00CE6AAC /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C089863168E217D00CE6AAC /* AppKit.framework */,
+				4C089864168E217D00CE6AAC /* CoreData.framework */,
+				4C089865168E217D00CE6AAC /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		4C089866168E217D00CE6AAC /* VolumeMeter */ = {
+			isa = PBXGroup;
+			children = (
+				4C089872168E217D00CE6AAC /* VMAppDelegate.h */,
+				4C089873168E217D00CE6AAC /* VMAppDelegate.m */,
+				4C089875168E217E00CE6AAC /* MainMenu.xib */,
+				4C089867168E217D00CE6AAC /* Supporting Files */,
+			);
+			path = VolumeMeter;
+			sourceTree = "<group>";
+		};
+		4C089867168E217D00CE6AAC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C089868168E217D00CE6AAC /* VolumeMeter-Info.plist */,
+				4C089869168E217D00CE6AAC /* InfoPlist.strings */,
+				4C08986C168E217D00CE6AAC /* main.m */,
+				4C08986E168E217D00CE6AAC /* VolumeMeter-Prefix.pch */,
+				4C08986F168E217D00CE6AAC /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4C08985B168E217D00CE6AAC /* VolumeMeter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C08987A168E217E00CE6AAC /* Build configuration list for PBXNativeTarget "VolumeMeter" */;
+			buildPhases = (
+				4C089858168E217D00CE6AAC /* Sources */,
+				4C089859168E217D00CE6AAC /* Frameworks */,
+				4C08985A168E217D00CE6AAC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VolumeMeter;
+			productName = VolumeMeter;
+			productReference = 4C08985C168E217D00CE6AAC /* VolumeMeter.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4C089853168E217D00CE6AAC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = VM;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Michael Starke";
+			};
+			buildConfigurationList = 4C089856168E217D00CE6AAC /* Build configuration list for PBXProject "VolumeMeter" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4C089851168E217D00CE6AAC;
+			productRefGroup = 4C08985D168E217D00CE6AAC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4C08985B168E217D00CE6AAC /* VolumeMeter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4C08985A168E217D00CE6AAC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C08986B168E217D00CE6AAC /* InfoPlist.strings in Resources */,
+				4C089871168E217D00CE6AAC /* Credits.rtf in Resources */,
+				4C089877168E217E00CE6AAC /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4C089858168E217D00CE6AAC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C08986D168E217D00CE6AAC /* main.m in Sources */,
+				4C089874168E217D00CE6AAC /* VMAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4C089869168E217D00CE6AAC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C08986A168E217D00CE6AAC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4C08986F168E217D00CE6AAC /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C089870168E217D00CE6AAC /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		4C089875168E217E00CE6AAC /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C089876168E217E00CE6AAC /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4C089878168E217E00CE6AAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		4C089879168E217E00CE6AAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		4C08987B168E217E00CE6AAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VolumeMeter/VolumeMeter-Prefix.pch";
+				INFOPLIST_FILE = "VolumeMeter/VolumeMeter-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4C08987C168E217E00CE6AAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VolumeMeter/VolumeMeter-Prefix.pch";
+				INFOPLIST_FILE = "VolumeMeter/VolumeMeter-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4C089856168E217D00CE6AAC /* Build configuration list for PBXProject "VolumeMeter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C089878168E217E00CE6AAC /* Debug */,
+				4C089879168E217E00CE6AAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C08987A168E217E00CE6AAC /* Build configuration list for PBXNativeTarget "VolumeMeter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C08987B168E217E00CE6AAC /* Debug */,
+				4C08987C168E217E00CE6AAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4C089853168E217D00CE6AAC /* Project object */;
+}
