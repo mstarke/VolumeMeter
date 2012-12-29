@@ -7,12 +7,22 @@
 //
 
 #import "VMAppDelegate.h"
+#import "VMConnectionThread.h"
+#import "VMStatusItemController.h"
+
+@interface VMAppDelegate ()
+
+@property (strong) VMConnectionThread *thread;
+@property (strong) VMStatusItemController *menuController;
+
+@end
 
 @implementation VMAppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
-  // Insert code here to initialize your application
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+  self.menuController = [[VMStatusItemController alloc] init];
+  self.thread = [[VMConnectionThread alloc] init];
+  [self.thread start];
 }
 
 @end

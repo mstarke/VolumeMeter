@@ -12,7 +12,9 @@
 		4C08986D168E217D00CE6AAC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C08986C168E217D00CE6AAC /* main.m */; };
 		4C089871168E217D00CE6AAC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4C08986F168E217D00CE6AAC /* Credits.rtf */; };
 		4C089874168E217D00CE6AAC /* VMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C089873168E217D00CE6AAC /* VMAppDelegate.m */; };
-		4C089877168E217E00CE6AAC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C089875168E217E00CE6AAC /* MainMenu.xib */; };
+		4C089877168E217E00CE6AAC /* Menu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C089875168E217E00CE6AAC /* Menu.xib */; };
+		4C08987F168E224600CE6AAC /* VMConnectionThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C08987E168E224600CE6AAC /* VMConnectionThread.m */; };
+		4CAB252B168E43D700C755C3 /* VMStatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB252A168E43D700C755C3 /* VMStatusItemController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +30,11 @@
 		4C089870168E217D00CE6AAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		4C089872168E217D00CE6AAC /* VMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VMAppDelegate.h; sourceTree = "<group>"; };
 		4C089873168E217D00CE6AAC /* VMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMAppDelegate.m; sourceTree = "<group>"; };
-		4C089876168E217E00CE6AAC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		4C089876168E217E00CE6AAC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Menu.xib; sourceTree = "<group>"; };
+		4C08987D168E224600CE6AAC /* VMConnectionThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMConnectionThread.h; sourceTree = "<group>"; };
+		4C08987E168E224600CE6AAC /* VMConnectionThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMConnectionThread.m; sourceTree = "<group>"; };
+		4CAB2529168E43D700C755C3 /* VMStatusItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMStatusItemController.h; sourceTree = "<group>"; };
+		4CAB252A168E43D700C755C3 /* VMStatusItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMStatusItemController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,9 +88,13 @@
 		4C089866168E217D00CE6AAC /* VolumeMeter */ = {
 			isa = PBXGroup;
 			children = (
+				4C08987D168E224600CE6AAC /* VMConnectionThread.h */,
+				4C08987E168E224600CE6AAC /* VMConnectionThread.m */,
 				4C089872168E217D00CE6AAC /* VMAppDelegate.h */,
 				4C089873168E217D00CE6AAC /* VMAppDelegate.m */,
-				4C089875168E217E00CE6AAC /* MainMenu.xib */,
+				4CAB2529168E43D700C755C3 /* VMStatusItemController.h */,
+				4CAB252A168E43D700C755C3 /* VMStatusItemController.m */,
+				4CAB252D168E442D00C755C3 /* Views */,
 				4C089867168E217D00CE6AAC /* Supporting Files */,
 			);
 			path = VolumeMeter;
@@ -100,6 +110,14 @@
 				4C08986F168E217D00CE6AAC /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4CAB252D168E442D00C755C3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4C089875168E217E00CE6AAC /* Menu.xib */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,7 +174,7 @@
 			files = (
 				4C08986B168E217D00CE6AAC /* InfoPlist.strings in Resources */,
 				4C089871168E217D00CE6AAC /* Credits.rtf in Resources */,
-				4C089877168E217E00CE6AAC /* MainMenu.xib in Resources */,
+				4C089877168E217E00CE6AAC /* Menu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +187,8 @@
 			files = (
 				4C08986D168E217D00CE6AAC /* main.m in Sources */,
 				4C089874168E217D00CE6AAC /* VMAppDelegate.m in Sources */,
+				4C08987F168E224600CE6AAC /* VMConnectionThread.m in Sources */,
+				4CAB252B168E43D700C755C3 /* VMStatusItemController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,12 +211,12 @@
 			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
-		4C089875168E217E00CE6AAC /* MainMenu.xib */ = {
+		4C089875168E217E00CE6AAC /* Menu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				4C089876168E217E00CE6AAC /* en */,
 			);
-			name = MainMenu.xib;
+			name = Menu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -298,6 +318,7 @@
 				4C08987C168E217E00CE6AAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
