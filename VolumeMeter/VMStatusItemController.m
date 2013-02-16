@@ -28,9 +28,6 @@
 {
   self = [super init];
   if (self) {
-    /*
-     register for notifications
-     */
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self
                       selector:@selector(didChangeAvailableVolume:)
@@ -56,11 +53,18 @@
   self.statusItem = [statusBar statusItemWithLength:NSVariableStatusItemLength];
   [self.statusItem setHighlightMode:YES];
   NSMenu *menu = [[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""];
+  NSString *aboutText = NSLocalizedString(@"MENU_ABOUT", @"");
+  NSString *quitText = NSLocalizedString(@"MENU_QUIT", @"");
+  NSString *openWebsiteText = NSLocalizedString(@"MENU_WEBSITE", @"");
+  NSMenuItem *aboutMenuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:aboutText action:@selector(orderFrontStandardAboutPanel:) keyEquivalent:@""];
   NSMenuItem *statusMenuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:@"" action:NULL keyEquivalent:@""];
-  NSMenuItem *quitMenuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@""];
-  NSMenuItem *openWebsiteItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:@"Open Website" action:@selector(openWebsite:) keyEquivalent:@""];
+  NSMenuItem *quitMenuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:quitText action:@selector(terminate:) keyEquivalent:@""];
+  NSMenuItem *openWebsiteItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:openWebsiteText action:@selector(openWebsite:) keyEquivalent:@""];
   [quitMenuItem setTarget:[NSApplication sharedApplication]];
   [openWebsiteItem setTarget:self];
+  
+  [menu addItem:aboutMenuItem];
+  [menu addItem:[NSMenuItem separatorItem]];
   [menu addItem:statusMenuItem];
   [menu addItem:[NSMenuItem separatorItem]];
   [menu addItem:openWebsiteItem];
@@ -77,7 +81,7 @@
   if( [availableVolume doubleValue] > 0 ) {
     double quota = [availableVolume doubleValue] + [usedVolume doubleValue];
     NSNumber *percentage = @(100 * [usedVolume doubleValue] / quota );
-    NSString *usedVolumeString = [NSByteCountFormatter stringFromByteCount:[usedVolume doubleValue] *1024*1024 countStyle:NSByteCountFormatterCountStyleBinary];
+    NSString *usedVolumeString = [NSByteCountFormatter stringFromByteCount:[usedVolume doubleValue]*1024*1024 countStyle:NSByteCountFormatterCountStyleBinary];
     NSString *quotaVolumeString = [NSByteCountFormatter stringFromByteCount:quota*1024*1024 countStyle:NSByteCountFormatterCountStyleBinary];
     statusString = [NSString stringWithFormat:@"%@ of %@ used", usedVolumeString, quotaVolumeString ];
     [self.statusItem setImage:[self statusImage:percentage]];

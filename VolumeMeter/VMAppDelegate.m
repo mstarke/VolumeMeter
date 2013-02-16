@@ -20,9 +20,13 @@
 @implementation VMAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+ 
   self.menuController = [[VMStatusItemController alloc] init];
+
   self.thread = [[VMConnectionThread alloc] init];
   [self.thread start];
 }
+
+
 
 @end

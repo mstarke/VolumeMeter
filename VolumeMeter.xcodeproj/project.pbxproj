@@ -10,10 +10,10 @@
 		4C089861168E217D00CE6AAC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C089860168E217D00CE6AAC /* Cocoa.framework */; };
 		4C08986B168E217D00CE6AAC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C089869168E217D00CE6AAC /* InfoPlist.strings */; };
 		4C08986D168E217D00CE6AAC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C08986C168E217D00CE6AAC /* main.m */; };
-		4C089871168E217D00CE6AAC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4C08986F168E217D00CE6AAC /* Credits.rtf */; };
 		4C089874168E217D00CE6AAC /* VMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C089873168E217D00CE6AAC /* VMAppDelegate.m */; };
 		4C089877168E217E00CE6AAC /* Menu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C089875168E217E00CE6AAC /* Menu.xib */; };
 		4C08987F168E224600CE6AAC /* VMConnectionThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C08987E168E224600CE6AAC /* VMConnectionThread.m */; };
+		4C4ECDE416D04543006B6166 /* VolumeMeter.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4C4ECDE316D04543006B6166 /* VolumeMeter.icns */; };
 		4CAB252B168E43D700C755C3 /* VMStatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB252A168E43D700C755C3 /* VMStatusItemController.m */; };
 /* End PBXBuildFile section */
 
@@ -27,12 +27,12 @@
 		4C08986A168E217D00CE6AAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4C08986C168E217D00CE6AAC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4C08986E168E217D00CE6AAC /* VolumeMeter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VolumeMeter-Prefix.pch"; sourceTree = "<group>"; };
-		4C089870168E217D00CE6AAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		4C089872168E217D00CE6AAC /* VMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VMAppDelegate.h; sourceTree = "<group>"; };
 		4C089873168E217D00CE6AAC /* VMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMAppDelegate.m; sourceTree = "<group>"; };
 		4C089876168E217E00CE6AAC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Menu.xib; sourceTree = "<group>"; };
 		4C08987D168E224600CE6AAC /* VMConnectionThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMConnectionThread.h; sourceTree = "<group>"; };
 		4C08987E168E224600CE6AAC /* VMConnectionThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMConnectionThread.m; sourceTree = "<group>"; };
+		4C4ECDE316D04543006B6166 /* VolumeMeter.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = VolumeMeter.icns; sourceTree = "<group>"; };
 		4CAB2529168E43D700C755C3 /* VMStatusItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMStatusItemController.h; sourceTree = "<group>"; };
 		4CAB252A168E43D700C755C3 /* VMStatusItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMStatusItemController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,6 +52,7 @@
 		4C089851168E217D00CE6AAC = {
 			isa = PBXGroup;
 			children = (
+				4C4ECDE316D04543006B6166 /* VolumeMeter.icns */,
 				4C089866168E217D00CE6AAC /* VolumeMeter */,
 				4C08985F168E217D00CE6AAC /* Frameworks */,
 				4C08985D168E217D00CE6AAC /* Products */,
@@ -107,7 +108,6 @@
 				4C089869168E217D00CE6AAC /* InfoPlist.strings */,
 				4C08986C168E217D00CE6AAC /* main.m */,
 				4C08986E168E217D00CE6AAC /* VolumeMeter-Prefix.pch */,
-				4C08986F168E217D00CE6AAC /* Credits.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -173,8 +173,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C08986B168E217D00CE6AAC /* InfoPlist.strings in Resources */,
-				4C089871168E217D00CE6AAC /* Credits.rtf in Resources */,
 				4C089877168E217E00CE6AAC /* Menu.xib in Resources */,
+				4C4ECDE416D04543006B6166 /* VolumeMeter.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,14 +201,6 @@
 				4C08986A168E217D00CE6AAC /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		4C08986F168E217D00CE6AAC /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4C089870168E217D00CE6AAC /* en */,
-			);
-			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
 		4C089875168E217E00CE6AAC /* Menu.xib */ = {
