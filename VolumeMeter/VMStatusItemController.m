@@ -83,7 +83,8 @@
     NSNumber *percentage = @(100 * [usedVolume doubleValue] / quota );
     NSString *usedVolumeString = [NSByteCountFormatter stringFromByteCount:[usedVolume doubleValue]*1024*1024 countStyle:NSByteCountFormatterCountStyleBinary];
     NSString *quotaVolumeString = [NSByteCountFormatter stringFromByteCount:quota*1024*1024 countStyle:NSByteCountFormatterCountStyleBinary];
-    statusString = [NSString stringWithFormat:@"%@ of %@ used", usedVolumeString, quotaVolumeString ];
+    NSString *statusTemplateString = NSLocalizedString(@"MENU_STATUS_TEMPLATE_%@_%@", @"The String needs 2 placeholders %@ 1. Used, 2. Quota");
+    statusString = [NSString stringWithFormat:statusTemplateString, usedVolumeString, quotaVolumeString ];
     [self.statusItem setImage:[self statusImage:percentage]];
   }
   else {
