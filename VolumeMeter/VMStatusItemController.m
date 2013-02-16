@@ -42,15 +42,13 @@
 }
 
 - (void)didChangeAvailableVolume:(NSNotification *)notification {
-  if([NSThread isMainThread]) {
-    [self performSelectorOnMainThread:@selector(didChangeAvailableVolume:) withObject:notification waitUntilDone:NO];
-  }
-  else {
-    NSDictionary *userInfo = [notification userInfo];
-    NSNumber *usedVolume = userInfo[VMConnectionThreadUsedVolumeKey];
-    NSNumber *availableVolume = userInfo[VMConnectionThreadAvailableVolumeKey];
+  NSDictionary *userInfo = [notification userInfo];
+  NSNumber *usedVolume = userInfo[VMConnectionThreadUsedVolumeKey];
+  NSNumber *availableVolume = userInfo[VMConnectionThreadAvailableVolumeKey];
+  // ensure the gui update is run on the main thread;
+  dispatch_async(dispatch_get_main_queue(), ^(void) {
     [self setStatusItemUsedVolume:usedVolume availableVolume:availableVolume];
-  }
+  });
 }
 
 - (void)createStatusItem {
@@ -79,7 +77,9 @@
   if( [availableVolume doubleValue] > 0 ) {
     double quota = [availableVolume doubleValue] + [usedVolume doubleValue];
     NSNumber *percentage = @(100 * [usedVolume doubleValue] / quota );
-    statusString = [NSString stringWithFormat:@"%@Gb of %.1fGb used", usedVolume, quota ];
+    NSString *usedVolumeString = [NSByteCountFormatter stringFromByteCount:[usedVolume doubleValue] *1024*1024 countStyle:NSByteCountFormatterCountStyleBinary];
+    NSString *quotaVolumeString = [NSByteCountFormatter stringFromByteCount:quota*1024*1024 countStyle:NSByteCountFormatterCountStyleBinary];
+    statusString = [NSString stringWithFormat:@"%@ of %@ used", usedVolumeString, quotaVolumeString ];
     [self.statusItem setImage:[self statusImage:percentage]];
   }
   else {
@@ -124,7 +124,7 @@
     
   }
   else {
-    
+    return [NSImage imageNamed:NSImageNameRefreshTemplate];
   }
   [NSGraphicsContext restoreGraphicsState];
   NSImage *image = [[NSImage alloc] initWithSize:imageRect.size];

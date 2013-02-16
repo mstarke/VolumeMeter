@@ -18,6 +18,7 @@ NSString *const VMConnectionThreadAvailableVolumeKey = @"VMConnectionThreadAvail
 NSString *const kStatusURL = @"http://center.vodafone.de/vfcenter/verbrauch.html";
 NSString *const kUsageString = @"Nutzung im aktuellen Abrechnungszeitraum:";
 NSTimeInterval const kSleepTime = 10.0;
+const double dAvailableVolumeInMegaBytes = 10240;
 
 @interface VMConnectionThread ()
 
@@ -31,23 +32,19 @@ NSTimeInterval const kSleepTime = 10.0;
 @implementation VMConnectionThread
 
 - (void)main {
-  NSURL *volumeURL = [NSURL URLWithString:kStatusURL];
-  NSStringEncoding encoding;
-  NSError *error = nil;
-  NSString *html = [NSString stringWithContentsOfURL:volumeURL usedEncoding:&encoding error:&error];
-  if(html != nil) {
+  while( ! [self isCancelled] ) {
+    NSURL *volumeURL = [NSURL URLWithString:kStatusURL];
+    NSStringEncoding encoding;
+    NSError *error = nil;
+    NSString *html = [NSString stringWithContentsOfURL:volumeURL usedEncoding:&encoding error:&error];
     [self updateUsedVolume:html];
+    [NSThread sleepForTimeInterval:kSleepTime];
   }
-  else {
-    // set error?
-  }
-  [NSThread sleepForTimeInterval:kSleepTime];
 }
 
 - (void)updateUsedVolume:(NSString *)htmlString {
   if(htmlString == nil) {
-    NSException *exception = [NSException exceptionWithName:NSInvalidArgumentException reason:@"htmlString cannot be nil" userInfo:nil];
-    @throw exception;
+    return; // nil string;
   }
   NSRange usageStringRange = [htmlString rangeOfString:kUsageString options:NSCaseInsensitiveSearch];
   if(usageStringRange.location == NSNotFound) {
@@ -65,12 +62,15 @@ NSTimeInterval const kSleepTime = 10.0;
   [volumeScanner setLocale:locale];
   double freeVolume = 0;
   if( [volumeScanner scanDouble:&freeVolume] ) {
-      self.usedVolume = freeVolume;
+    if( [[parseString lowercaseString] hasSuffix:@"gb"] ) {
+      freeVolume *= 1024;
+    }
+    self.usedVolume = freeVolume;
   }
 }
 
 - (void)postVolumeChangedNotification {
-  double availableVolume = 10.0 - self.usedVolume;
+  double availableVolume = dAvailableVolumeInMegaBytes - self.usedVolume;
   NSDictionary *userInfo = @{ VMConnectionThreadAvailableVolumeKey: @(availableVolume), VMConnectionThreadUsedVolumeKey: @(self.usedVolume) };
   [[NSNotificationCenter defaultCenter] postNotificationName:VMConnectionThreadVolumeChangedNotification object:self userInfo:userInfo];
 }
