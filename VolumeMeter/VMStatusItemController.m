@@ -96,26 +96,11 @@
 }
 
 - (NSImage *)statusImage:(NSNumber *)percentage {
-  NSRect imageRect = NSMakeRect(0, 0, 10, 16);
-  NSBitmapImageRep* offscreenRep = nil;
   
-  offscreenRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:nil
-                                                         pixelsWide:imageRect.size.width
-                                                         pixelsHigh:imageRect.size.height
-                                                      bitsPerSample:8
-                                                    samplesPerPixel:4
-                                                           hasAlpha:YES
-                                                           isPlanar:NO
-                                                     colorSpaceName:NSCalibratedRGBColorSpace
-                                                       bitmapFormat:0
-                                                        bytesPerRow:(4 * imageRect.size.width)
-                                                       bitsPerPixel:32];
-  
-  [NSGraphicsContext saveGraphicsState];
-  [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithBitmapImageRep:offscreenRep]];
-  
-  //percentage valid
-  if(percentage != nil) {
+  if(!percentage) {
+    return [NSImage imageNamed:NSImageNameRefreshTemplate];
+  }
+  NSImage *image = [NSImage imageWithSize:NSMakeSize(10, 16) flipped:NO drawingHandler:^BOOL(NSRect imageRect) {
     NSRect strokeRect = NSInsetRect(imageRect, 0.5, 0.5);
     NSBezierPath *outlinePath = [NSBezierPath bezierPathWithRoundedRect:strokeRect xRadius:3 yRadius:3];
     CGFloat percentValue = [percentage doubleValue] / 100;
@@ -126,15 +111,8 @@
     stateRect.size.height *= percentValue;
     NSBezierPath *barPath = [NSBezierPath bezierPathWithRoundedRect:stateRect xRadius:2 yRadius:2];
     [barPath fill];
-    
-  }
-  else {
-    return [NSImage imageNamed:NSImageNameRefreshTemplate];
-  }
-  [NSGraphicsContext restoreGraphicsState];
-  NSImage *image = [[NSImage alloc] initWithSize:imageRect.size];
-  [image addRepresentation:offscreenRep];
-  [image setTemplate:YES];
+    return YES;
+  }];
   return image;
 }
 
