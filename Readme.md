@@ -3,6 +3,8 @@
 VolumeMeter displays a simple Menu Bar item (a bar) to show the available high speed data on a Vodafone UMTS flatrate.
 The tool parses the data from the [Vodafone Center](http://center.vodafone.de) website.
 
+The tool is only tested with German Vodafone accounts.
+
 ## License
 Copyright &copy; 2012 Michael Starke.
 
