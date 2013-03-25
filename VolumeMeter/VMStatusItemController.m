@@ -14,11 +14,12 @@
 @property (strong) NSStatusItem *statusItem;
 @property (weak) NSMenuItem *statusInfoMenuItem;
 
-- (void)didChangeAvailableVolume:(NSNotification *)notification;
-- (void)createStatusItem;
-- (void)setStatusItemUsedVolume:(NSNumber *)usedVolume availableVolume:(NSNumber *)availableVolume;
-- (NSImage *)statusImage:(NSNumber *)percentage;
-- (void)openWebsite:(id)sender;
+- (void)_didChangeAvailableVolume:(NSNotification *)notification;
+- (void)_didEncounterError:(NSNotification *)notification;
+- (void)_createStatusItem;
+- (void)_setStatusItemUsedVolume:(NSNumber *)usedVolume availableVolume:(NSNumber *)availableVolume;
+- (NSImage *)_statusImage:(NSNumber *)percentage;
+- (void)_openWebsite:(id)sender;
 
 @end
 
@@ -30,25 +31,62 @@
   if (self) {
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self
-                      selector:@selector(didChangeAvailableVolume:)
+                      selector:@selector(_didChangeAvailableVolume:)
                           name:VMConnectionThreadVolumeChangedNotification
                         object:nil];
-    [self createStatusItem];
+    
+    [defaultCenter addObserver:self
+                      selector:@selector(_didEncounterError:)
+                          name:VMConnectionThreadConnectionErrorOccuredNotification
+                        object:nil];
+    [self _createStatusItem];
   }
   return self;
 }
 
-- (void)didChangeAvailableVolume:(NSNotification *)notification {
+#pragma mark Notifications
+- (void)_didChangeAvailableVolume:(NSNotification *)notification {
   NSDictionary *userInfo = [notification userInfo];
   NSNumber *usedVolume = userInfo[VMConnectionThreadUsedVolumeKey];
   NSNumber *availableVolume = userInfo[VMConnectionThreadAvailableVolumeKey];
   // ensure the gui update is run on the main thread;
   dispatch_async(dispatch_get_main_queue(), ^(void) {
-    [self setStatusItemUsedVolume:usedVolume availableVolume:availableVolume];
+    [self _setStatusItemUsedVolume:usedVolume availableVolume:availableVolume];
   });
 }
 
-- (void)createStatusItem {
+- (void)_didEncounterError:(NSNotification *)notification {
+  NSDictionary *userInfo = [notification userInfo];
+  VMConnectionThreadErrorType errorType = (VMConnectionThreadErrorType)[userInfo[VMConnectionThreadConnectionErrorTypeKey] intValue];
+  
+  NSString *statusString = nil;
+  switch (errorType) {
+    case VMConnectionThreadErrorNoValidStatusURL:
+      statusString = NSLocalizedString(@"ERROR_URL_INVALID", @"URL for parsing the data wasn't valid");
+      break;
+
+    case VMConnectionThreadErrorOffline:
+      statusString = NSLocalizedString(@"ERROR_OFFLINE", @"No internet access");
+      break;
+      
+    case VMConnectionThreadErrorParsingError:
+      statusString = NSLocalizedString(@"ERROR_PARSING_ERROR", @"Error while trying to parse volume data");
+      break;
+      
+    default:
+      statusString = NSLocalizedString(@"ERROR_INVALID_ERROR", @"Error code not found");
+      break;
+  }  
+  dispatch_async(dispatch_get_main_queue(), ^(void){
+    NSImage *statusImage = [[NSBundle mainBundle] imageForResource:@"warningTemplate"];
+    [self.statusItem setImage:statusImage];
+    [self.statusInfoMenuItem setTitle:statusString];
+  });
+}
+
+#pragma mark StatusItem Setup and Updates
+
+- (void)_createStatusItem {
   NSStatusBar *statusBar = [NSStatusBar systemStatusBar];
   self.statusItem = [statusBar statusItemWithLength:NSVariableStatusItemLength];
   [self.statusItem setHighlightMode:YES];
@@ -59,7 +97,7 @@
   NSMenuItem *aboutMenuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:aboutText action:@selector(orderFrontStandardAboutPanel:) keyEquivalent:@""];
   NSMenuItem *statusMenuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:@"" action:NULL keyEquivalent:@""];
   NSMenuItem *quitMenuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:quitText action:@selector(terminate:) keyEquivalent:@""];
-  NSMenuItem *openWebsiteItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:openWebsiteText action:@selector(openWebsite:) keyEquivalent:@""];
+  NSMenuItem *openWebsiteItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:openWebsiteText action:@selector(_openWebsite:) keyEquivalent:@""];
   [quitMenuItem setTarget:[NSApplication sharedApplication]];
   [openWebsiteItem setTarget:self];
   
@@ -72,10 +110,10 @@
   
   [self.statusItem setMenu:menu];
   self.statusInfoMenuItem = statusMenuItem;
-  [self setStatusItemUsedVolume:@0.0 availableVolume:@0.0];
+  [self _setStatusItemUsedVolume:@0.0 availableVolume:@0.0];
 }
 
-- (void)setStatusItemUsedVolume:(NSNumber *)usedVolume availableVolume:(NSNumber *)availableVolume {
+- (void)_setStatusItemUsedVolume:(NSNumber *)usedVolume availableVolume:(NSNumber *)availableVolume {
   //NSDictionary *attributes = @{ NSFontAttributeName:[NSFont systemFontOfSize:14.0] };
   NSString *statusString;
   if( [availableVolume doubleValue] > 0 ) {
@@ -85,20 +123,20 @@
     NSString *quotaVolumeString = [NSByteCountFormatter stringFromByteCount:quota*1024*1024 countStyle:NSByteCountFormatterCountStyleBinary];
     NSString *statusTemplateString = NSLocalizedString(@"MENU_STATUS_TEMPLATE_%@_%@", @"The String needs 2 placeholders %@ 1. Used, 2. Quota");
     statusString = [NSString stringWithFormat:statusTemplateString, usedVolumeString, quotaVolumeString ];
-    [self.statusItem setImage:[self statusImage:percentage]];
+    [self.statusItem setImage:[self _statusImage:percentage]];
   }
   else {
     statusString = @"Updating...";
-    [self.statusItem setImage:[self statusImage:nil]];
+    [self.statusItem setImage:[self _statusImage:nil]];
   }
   //NSAttributedString *title = [[NSAttributedString alloc] initWithString:titleString attributes:attributes];
   [self.statusInfoMenuItem setTitle:statusString];
 }
 
-- (NSImage *)statusImage:(NSNumber *)percentage {
+- (NSImage *)_statusImage:(NSNumber *)percentage {
   
   if(!percentage) {
-    return [NSImage imageNamed:NSImageNameRefreshTemplate];
+    return [NSImage imageNamed:NSImageNameRefreshFreestandingTemplate];
   }
   NSImage *image = [NSImage imageWithSize:NSMakeSize(10, 16) flipped:NO drawingHandler:^BOOL(NSRect imageRect) {
     NSRect strokeRect = NSInsetRect(imageRect, 0.5, 0.5);
@@ -116,7 +154,8 @@
   return image;
 }
 
-- (void)openWebsite:(id)sender {
+#pragma mark Actions
+- (void)_openWebsite:(id)sender {
   [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://center.vodafone.de/vfcenter/verbrauch.html" ]];
 }
 
