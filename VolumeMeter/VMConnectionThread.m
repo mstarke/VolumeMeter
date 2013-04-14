@@ -32,7 +32,8 @@ const double dAvailableVolumeInMegaBytes = 10240;
 
 @interface VMConnectionThread ()
 
-@property (nonatomic, assign) double usedVolume;
+@property (nonatomic, assign) double usedMegabytes;
+@property (nonatomic, assign) double availableMegabytes;
 @property (nonatomic, assign) VMConnectionThreadErrorType errorType;
 
 - (BOOL)hasErrors;
@@ -84,16 +85,16 @@ const double dAvailableVolumeInMegaBytes = 10240;
     if( [[parseString lowercaseString] hasSuffix:@"gb"] ) {
       freeVolume *= 1024;
     }
-    self.usedVolume = freeVolume;
+    self.usedMegabytes = freeVolume;
   }
   else {
     self.errorType = VMConnectionThreadErrorParsingError;
   }
 }
 
-- (void)setUsedVolume:(double)usedVolume {
-  if(_usedVolume != usedVolume) {
-    _usedVolume = usedVolume;
+- (void)setUsedMegabytes:(double)usedMegabytes {
+  if(_usedMegabytes != usedMegabytes) {
+    _usedMegabytes = usedMegabytes;
     [self postVolumeChangedNotification];
   }
 }
@@ -110,8 +111,8 @@ const double dAvailableVolumeInMegaBytes = 10240;
 }
 
 - (void)postVolumeChangedNotification {
-  double availableVolume = dAvailableVolumeInMegaBytes - self.usedVolume;
-  NSDictionary *userInfo = @{ VMConnectionThreadAvailableVolumeKey: @(availableVolume), VMConnectionThreadUsedVolumeKey: @(self.usedVolume) };
+  double availableVolume = dAvailableVolumeInMegaBytes - self.usedMegabytes;
+  NSDictionary *userInfo = @{ VMConnectionThreadAvailableVolumeKey: @(availableVolume), VMConnectionThreadUsedVolumeKey: @(self.usedMegabytes) };
   [[NSNotificationCenter defaultCenter] postNotificationName:VMConnectionThreadVolumeChangedNotification object:self userInfo:userInfo];
 }
 

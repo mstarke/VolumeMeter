@@ -9,6 +9,7 @@
 #import "VMAppDelegate.h"
 #import "VMConnectionThread.h"
 #import "VMStatusItemController.h"
+#import "VMSettingsWindowController.h"
 
 @interface VMAppDelegate ()
 
@@ -18,6 +19,10 @@
 @end
 
 @implementation VMAppDelegate
+
++ (void)initialize {
+  [VMSettingsWindowController registerDefaults];
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
  

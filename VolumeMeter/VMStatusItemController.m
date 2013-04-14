@@ -7,11 +7,13 @@
 //
 
 #import "VMStatusItemController.h"
+#import "VMSettingsWindowController.h"
 #import "VMConnectionThread.h"
 
 @interface VMStatusItemController ()
 
 @property (strong) NSStatusItem *statusItem;
+@property (strong) VMSettingsWindowController *settingsWindowController;
 @property (weak) NSMenuItem *statusInfoMenuItem;
 
 - (void)_didChangeAvailableVolume:(NSNotification *)notification;
@@ -20,6 +22,7 @@
 - (void)_setStatusItemUsedVolume:(NSNumber *)usedVolume availableVolume:(NSNumber *)availableVolume;
 - (NSImage *)_statusImage:(NSNumber *)percentage;
 - (void)_openWebsite:(id)sender;
+- (void)_showPreferences:(id)sender;
 
 @end
 
@@ -94,8 +97,11 @@
   NSString *aboutText = NSLocalizedString(@"MENU_ABOUT", @"");
   NSString *quitText = NSLocalizedString(@"MENU_QUIT", @"");
   NSString *openWebsiteText = NSLocalizedString(@"MENU_WEBSITE", @"");
+  NSString *preferencesText = NSLocalizedString(@"MENU_SHOW_PREFERENCES", @"");
   NSMenuItem *aboutMenuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:aboutText action:@selector(orderFrontStandardAboutPanel:) keyEquivalent:@""];
   NSMenuItem *statusMenuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:@"" action:NULL keyEquivalent:@""];
+  NSMenuItem *prefrencesMenuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:preferencesText action:@selector(_showPreferences:) keyEquivalent:@""];
+  [prefrencesMenuItem setTarget:self];
   NSMenuItem *quitMenuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:quitText action:@selector(terminate:) keyEquivalent:@""];
   NSMenuItem *openWebsiteItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:openWebsiteText action:@selector(_openWebsite:) keyEquivalent:@""];
   [quitMenuItem setTarget:[NSApplication sharedApplication]];
@@ -105,6 +111,7 @@
   [menu addItem:[NSMenuItem separatorItem]];
   [menu addItem:statusMenuItem];
   [menu addItem:[NSMenuItem separatorItem]];
+  [menu addItem:prefrencesMenuItem];
   [menu addItem:openWebsiteItem];
   [menu addItem:quitMenuItem];
   
@@ -157,6 +164,13 @@
 #pragma mark Actions
 - (void)_openWebsite:(id)sender {
   [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://center.vodafone.de/vfcenter/verbrauch.html" ]];
+}
+
+- (void)_showPreferences:(id)sender {
+  if(!self.settingsWindowController){
+    self.settingsWindowController = [[VMSettingsWindowController alloc] init];
+  }
+  [self.settingsWindowController showSettings];
 }
 
 @end
