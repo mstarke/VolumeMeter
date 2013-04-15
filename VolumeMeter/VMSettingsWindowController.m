@@ -58,6 +58,7 @@ NSString *const VMSettingsKeyUpdateIntervall = @"UpdateInterval";
 }
 
 - (void)showSettings {
+  [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
   [[self window] makeKeyAndOrderFront:nil];
 }
 
