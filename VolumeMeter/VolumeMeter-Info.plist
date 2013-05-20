@@ -31,7 +31,7 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2012 Michael Starke. All rights reserved.</string>
 	<key>NSMainNibFile</key>
-	<string>Menu</string>
+	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>
