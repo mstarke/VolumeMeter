@@ -15,6 +15,8 @@ NSString *const VMSettingsKeyUpdateIntervall = @"UpdateInterval";
 
 @property (weak) IBOutlet NSPopUpButton *updateIntervallPopup;
 @property (weak) IBOutlet NSTextField *statusURLTextfield;
+@property (assign) BOOL statusUrlOk;
+@property (weak) IBOutlet NSTextField *errorTextField;
 
 - (void)_didChangeUserDefaults:(NSNotification *)notification;
 - (IBAction)_reset:(id)sender;
@@ -39,6 +41,7 @@ NSString *const VMSettingsKeyUpdateIntervall = @"UpdateInterval";
   self = [super initWithWindow:window];
   if(self) {
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    _statusUrlOk = YES;
     [notificationCenter addObserver:self selector:@selector(_didChangeUserDefaults:) name:NSUserDefaultsDidChangeNotification object:nil];
   }
   return self;
@@ -48,13 +51,14 @@ NSString *const VMSettingsKeyUpdateIntervall = @"UpdateInterval";
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)windowDidLoad {
+- (void)windowDidLoad {;
   [super windowDidLoad];
   NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
   NSString *intervallKeyPath = [NSString stringWithFormat:@"values.%@", VMSettingsKeyUpdateIntervall];
   NSString *statusURLKeyPath = [NSString stringWithFormat:@"values.%@", VMSettingsKeyStatusURL];
   [self.updateIntervallPopup bind:NSSelectedTagBinding toObject:defaultsController withKeyPath:intervallKeyPath options:nil];
   [self.statusURLTextfield bind:NSValueBinding toObject:defaultsController withKeyPath:statusURLKeyPath options:nil];
+  [self.errorTextField bind:NSHiddenBinding toObject:self withKeyPath:@"statusUrlOk" options:nil];
 }
 
 - (void)showSettings {
@@ -63,11 +67,20 @@ NSString *const VMSettingsKeyUpdateIntervall = @"UpdateInterval";
 }
 
 - (void)_didChangeUserDefaults:(NSNotification *)notification {
-  // TODO: Check URL reachability
+  NSURL *statusUrl = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] stringForKey:VMSettingsKeyStatusURL]];
+  dispatch_queue_t backgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+  dispatch_async(backgroundQueue, ^{
+    NSError *error = nil;
+    NSStringEncoding encoding;
+    NSString *website = [NSString stringWithContentsOfURL:statusUrl usedEncoding:&encoding error:&error];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      self.statusUrlOk = (website && !error);
+    });
+  });
 }
 
 - (IBAction)_reset:(id)sender {
-  // TODO: Remove the settings
+  [NSUserDefaults resetStandardUserDefaults];
 }
 
 @end

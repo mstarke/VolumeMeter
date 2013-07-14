@@ -23,6 +23,7 @@
 - (NSImage *)_statusImage:(NSNumber *)percentage;
 - (void)_openWebsite:(id)sender;
 - (void)_showPreferences:(id)sender;
+- (void)_showAbout:(id)sender;
 
 @end
 
@@ -67,7 +68,7 @@
     case VMConnectionThreadErrorNoValidStatusURL:
       statusString = NSLocalizedString(@"ERROR_URL_INVALID", @"URL for parsing the data wasn't valid");
       break;
-
+      
     case VMConnectionThreadErrorOffline:
       statusString = NSLocalizedString(@"ERROR_OFFLINE", @"No internet access");
       break;
@@ -79,7 +80,7 @@
     default:
       statusString = NSLocalizedString(@"ERROR_INVALID_ERROR", @"Error code not found");
       break;
-  }  
+  }
   dispatch_async(dispatch_get_main_queue(), ^(void){
     NSImage *statusImage = [[NSBundle mainBundle] imageForResource:@"warningTemplate"];
     [self.statusItem setImage:statusImage];
@@ -98,7 +99,8 @@
   NSString *quitText = NSLocalizedString(@"MENU_QUIT", @"");
   NSString *openWebsiteText = NSLocalizedString(@"MENU_WEBSITE", @"");
   NSString *preferencesText = NSLocalizedString(@"MENU_SHOW_PREFERENCES", @"");
-  NSMenuItem *aboutMenuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:aboutText action:@selector(orderFrontStandardAboutPanel:) keyEquivalent:@""];
+  NSMenuItem *aboutMenuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:aboutText action:@selector(_showAbout:) keyEquivalent:@""];
+  [aboutMenuItem setTarget:self];
   NSMenuItem *statusMenuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:@"" action:NULL keyEquivalent:@""];
   NSMenuItem *prefrencesMenuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:preferencesText action:@selector(_showPreferences:) keyEquivalent:@""];
   [prefrencesMenuItem setTarget:self];
@@ -167,10 +169,18 @@
 }
 
 - (void)_showPreferences:(id)sender {
-  if(!self.settingsWindowController){
-    self.settingsWindowController = [[VMSettingsWindowController alloc] init];
-  }
-  [self.settingsWindowController showSettings];
+  /*
+   if(!self.settingsWindowController){
+   self.settingsWindowController = [[VMSettingsWindowController alloc] init];
+   }
+   [self.settingsWindowController showSettings];
+   */
+}
+
+- (void)_showAbout:(id)sender {
+  [NSApp activateIgnoringOtherApps:YES];
+  id target = [NSApp targetForAction:@selector(orderFrontStandardAboutPanel:)];
+  [target orderFrontStandardAboutPanel:sender];
 }
 
 @end
